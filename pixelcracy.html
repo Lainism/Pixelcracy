@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pixelcracy</title>
+    <script type="text/javascript" src="scripts/require.js"></script>
+    <!-- TEST CANVAS SIZE
+    <style>
+    html, body {margin:0px;}
+    #canvas {background-color:red;}
+    </style>-->
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script type="text/javascript">
+    	function windowsize(){
+		    var ctx = document.getElementById("canvas");
+		    ctx.width = window.innerWidth;
+		    ctx.height = window.innerHeight;
+		}
+		windowsize();
+	</script>
+  </body>
+</html>
