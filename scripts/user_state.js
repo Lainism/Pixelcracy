@@ -1,7 +1,8 @@
-define(['tool','picture'], function(Tool, Picture){
+define(['tool','picture', 'pen'], function(Tool, Picture, Pen){
 
         function UserState(){
-	    this.active_tool = new Tool(this);
+	    this.active_tool = new Pen(this);
+	    console.log(this.active_tool.get_name());
 	    this.active_color = "#000000";
 	    this.active_layout = "default";
 

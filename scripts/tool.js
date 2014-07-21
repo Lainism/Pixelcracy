@@ -4,6 +4,7 @@ define(function(){
                 console.log("NEW TOOL SELECTED");
 		var size = 1;
 		var transparency = 0;
+                this.name = "default";
 		
 		change_size = function(new_size) {
 			active_size = size;
@@ -15,6 +16,7 @@ define(function(){
 				transparency = new_percentage;
 			}
 		};
+                this.get_name = function(){ return this.name};
 	};
 	return Tool;
 });
