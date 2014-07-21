@@ -1,8 +1,12 @@
-define(function (require) {
-	var size = [600, 800];
-	var layers = [];
+define(['layer'], function(Layer) {
 
-	for (i = 0; i < 5; i++) {
-		layers.push(require('./layer'));
-	}
+	function Picture(width, height){
+	    this.size = [width, height];
+	    this.layers = [];
+
+	    for (i = 0; i < 5; i++) {
+	        this.layers.push(new Layer(width,height));
+	    }
+        }
+	return Picture;
 });
