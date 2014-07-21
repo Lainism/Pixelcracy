@@ -1,6 +1,6 @@
-define(function (require) {
-	var user_state = require('./user_state');
-    var user_interface = require('./user_interface');
-
-    user_interface.init();
+require(['user_state','user_interface'], function(UserState, UserInterface) {
+    var state = new UserState();
+    console.log(state.get_alpha());
+    UserInterface.init();
 });
+

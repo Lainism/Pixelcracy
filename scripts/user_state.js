@@ -1,12 +1,13 @@
-define(function (require) {
-	var view = require('./view');
-	//for whenever we implement tools...
-	//var active_tool = require('./pen');
-	var active_color = "#000000";
-	var active_layout = "default";
+define(['tool'], function(Tool){
 
-	//binary whether alpha channel is allowed
-	var alpha = 1;
+        function UserState(){
+	    this.active_tool = new Tool(this);
+	    this.active_color = "#000000";
+	    this.active_layout = "default";
 
-	get_alpha = function() { return alpha; };
+	    this.alpha = 1;
+
+	    this.get_alpha = function() { return this.alpha; };
+        }
+        return UserState;
 });
