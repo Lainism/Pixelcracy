@@ -23,6 +23,8 @@ define(['layer'], function(Layer) {
 		};
 
 		this.redraw = function() {
+            context = document.getElementById("canvas").getContext("2d");
+
 			context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
 
 			context.strokeStyle = "#df4b26";

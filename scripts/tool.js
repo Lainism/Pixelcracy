@@ -21,24 +21,24 @@ define(['user_state', 'picture', 'jquery'], function(UserState, Picture, $){
 		this.addClick = function(x, y, dragging) {
 			var picture = user_state.active_picture;
 			picture.add_stroke(x, y, dragging);
+            picture.redraw();
 		};
 
 		//drawing events
 		//tools override the two first of these
+        var tool = this;
 		$('#canvas').mousedown(function(e){
 			var mouseX = e.pageX - this.offsetLeft;
 			var mouseY = e.pageY - this.offsetTop;
 
 			paint = true;
 
-			addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
-			redraw();
+			tool.addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
 		});
 
 		$('#canvas').mousemove(function(e){
 			if(paint){
-				addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
-				redraw();
+				tool.addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
   }
 		});
 
