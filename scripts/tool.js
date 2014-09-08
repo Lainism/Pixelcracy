@@ -1,9 +1,10 @@
-define(function(){
+define(['user_state', 'picture', 'jquery'], function(UserState, Picture, $){
 
 	function Tool(user_state){
                 console.log("NEW TOOL SELECTED");
 		var size = 1;
 		var transparency = 0;
+		var paint = false;
                 this.name = "default";
 		
 		change_size = function(new_size) {
@@ -16,7 +17,40 @@ define(function(){
 				transparency = new_percentage;
 			}
 		};
-                this.get_name = function(){ return this.name};
+
+		this.addClick = function(x, y, dragging) {
+			var picture = user_state.active_picture;
+			picture.add_stroke(x, y, dragging);
+		};
+
+		//drawing events
+		//tools override the two first of these
+		$('#canvas').mousedown(function(e){
+			var mouseX = e.pageX - this.offsetLeft;
+			var mouseY = e.pageY - this.offsetTop;
+
+			paint = true;
+
+			addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
+			redraw();
+		});
+
+		$('#canvas').mousemove(function(e){
+			if(paint){
+				addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+				redraw();
+  }
+		});
+
+		$('#canvas').mouseup(function(e){
+			paint = false;
+		});
+
+		$('#canvas').mouseleave(function(e){
+			paint = false;
+		});
+
+        		this.get_name = function(){ return this.name};
 	};
 	return Tool;
 });
