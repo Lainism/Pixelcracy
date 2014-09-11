@@ -2,16 +2,17 @@ define(['user_state', 'picture', 'jquery'], function(UserState, Picture, $){
 
 	function Tool(user_state){
                 console.log("NEW TOOL SELECTED");
-		var size = 1;
-		var transparency = 0;
-		var paint = false;
-                this.name = "default";
+		this.size = 1;
+		this.transparency = 0;
+		this.paint = false;
+        this.name = "default";
+        this.get_name = function(){ return this.name};
 		
-		change_size = function(new_size) {
+		this.change_size = function(new_size) {
 			active_size = size;
 		};
 
-		change_transparency = function(new_percentage) {
+		this.change_transparency = function(new_percentage) {
 		//transparency can't be changed if there is no alpha channel
 			if (user.get_alpha() == 1) {
 				transparency = new_percentage;
@@ -50,7 +51,6 @@ define(['user_state', 'picture', 'jquery'], function(UserState, Picture, $){
 			paint = false;
 		});
 
-        		this.get_name = function(){ return this.name};
 	};
 	return Tool;
 });
