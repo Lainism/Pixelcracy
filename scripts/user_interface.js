@@ -3,7 +3,7 @@ define(['pen'],function(Pen) {
         init: function(user_state){
             var ctx = document.getElementById("canvas");
             ctx.width = window.innerWidth;
-            ctx.height = window.innerHeight;
+            ctx.height = window.innerHeight*2/3;
             
             var set_tool = function(tool){
                 console.log("using a pen");
