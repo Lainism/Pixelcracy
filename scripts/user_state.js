@@ -11,6 +11,9 @@ define(['tool','picture', 'pen'], function(Tool, Picture, Pen){
 	    this.active_picture = new Picture(800,600);
 
 	    this.get_alpha = function() { return this.alpha; };
+	    this.get_picture = function() { return this.active_picture; };
+        
         }
+
         return UserState;
 });
