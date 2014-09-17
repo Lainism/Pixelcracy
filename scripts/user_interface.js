@@ -1,4 +1,4 @@
-define(['pen'],function(Pen) {
+define(['pen', 'jquery'],function(Pen, $) {
     return {
         init: function(user_state){
             var ctx = document.getElementById("canvas");
@@ -15,46 +15,41 @@ define(['pen'],function(Pen) {
             var pic = user_state.get_picture();
             ctx.strokeStyle = pic.color;
 
-            var penbutton = document.createElement("input");
+            var penbutton = document.getElementById("pen");
             penbutton.setAttribute("type", "button");
             penbutton.setAttribute("value", "Pen");
             penbutton.setAttribute("name", "penbutton");
-            toolbar.appendChild(penbutton);
 
-            var redbutton = document.createElement("input");
+            var redbutton = document.getElementById("red");
             redbutton.setAttribute("type", "number");
             redbutton.setAttribute("value", "" + pic.to_rgb(ctx.strokeStyle).r);
             redbutton.setAttribute("name", "red");
             redbutton.setAttribute("min", "0");
             redbutton.setAttribute("max", "255");
-            toolbar.appendChild(redbutton);
 
-            var greenbutton = document.createElement("input");
+            var greenbutton = document.getElementById("green");
             greenbutton.setAttribute("type", "number");
             greenbutton.setAttribute("value", "" + pic.to_rgb(ctx.strokeStyle).g);
             greenbutton.setAttribute("name", "green");
             greenbutton.setAttribute("min", "0");
             greenbutton.setAttribute("max", "255");
-            toolbar.appendChild(greenbutton);
 
-            var bluebutton = document.createElement("input");
+            var bluebutton = document.getElementById("blue");
             bluebutton.setAttribute("type", "number");
             bluebutton.setAttribute("value", "" + pic.to_rgb(ctx.strokeStyle).b);
             bluebutton.setAttribute("name", "blue");
             bluebutton.setAttribute("min", "0");
             bluebutton.setAttribute("max", "255");
-            toolbar.appendChild(bluebutton);
 
-            var colorbutton = document.createElement("input");
+            var colorbutton = document.getElementById("color");
             colorbutton.setAttribute("type", "color");
             colorbutton.setAttribute("value", ctx.strokeStyle);
             colorbutton.setAttribute("name", "new_color");
-            toolbar.appendChild(colorbutton);
 
             var color_change = function(event) {
-                var r = redbutton.getAttribute("value");
-                var g = greenbutton.getAttribute("value");
-                var b = bluebutton.getAttribute("value");
+                var r = $("#red").val();
+                var g = $("#green").val();
+                var b = $("#blue").val();
 
                 console.log("r: " + r + " g: " + g + " b: " + b);
                 pic.set_rgb(r, g, b);
@@ -62,7 +57,7 @@ define(['pen'],function(Pen) {
             };
 
             var color_picker_change = function(event) {
-                var c = colorbutton.getAttribute("value");
+                var c = $("#color").val();
                 var rgb = pic.to_rgb(c);
                 console.log(c);
 
