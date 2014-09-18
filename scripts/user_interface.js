@@ -72,9 +72,9 @@ define(['pen', 'jquery'],function(Pen, $) {
 				console.log(c);
 
 				pic.set_hex(c);
-				redbutton.setAttribute("value", "" + rgb.r);
-				greenbutton.setAttribute("value", "" + rgb.g);
-				bluebutton.setAttribute("value", "" + rgb.b);
+				redbutton.value = rgb.r;
+				greenbutton.value = rgb.g;
+				bluebutton.value = rgb.b;
 			};
 
 			penbutton.addEventListener("click", function(event) {
