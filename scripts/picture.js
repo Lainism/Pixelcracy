@@ -49,6 +49,18 @@ define(['layer'], function(Layer) {
 			clickDrag.push(dragging);
 		};
 
+        this.undo = function() {
+            while(clickDrag[clickDrag.length-1]) {
+                clickDrag.pop();
+                clickX.pop();
+                clickY.pop();
+            }
+            clickDrag.pop();
+            clickX.pop();
+            clickY.pop();
+            this.redraw();
+        };
+
 		this.redraw = function() {
             context = document.getElementById("canvas").getContext("2d");
 

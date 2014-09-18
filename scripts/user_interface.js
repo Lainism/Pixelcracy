@@ -46,6 +46,13 @@ define(['pen', 'jquery'],function(Pen, $) {
             colorbutton.setAttribute("value", ctx.strokeStyle);
             colorbutton.setAttribute("name", "new_color");
 
+            var undobutton = document.getElementById("undo");
+            undobutton.setAttribute("type", "button");
+            undobutton.setAttribute("value", "Undo");
+            undobutton.setAttribute("name", "undobutton");
+            
+
+
             var color_change = function(event) {
                 var r = $("#red").val();
                 var g = $("#green").val();
@@ -69,6 +76,10 @@ define(['pen', 'jquery'],function(Pen, $) {
 
             penbutton.addEventListener("click", function(event) {
                 set_tool(Pen);
+            });
+
+            undobutton.addEventListener("click", function(event) {
+                user_state.active_picture.undo();
             });
 
             redbutton.addEventListener("change", color_change);
