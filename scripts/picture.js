@@ -1,9 +1,8 @@
 define(['layer'], function(Layer) {
 
-	function Picture(width, height){
+	function Picture(width, height, user_state){
 	    this.size = [width, height];
 	    this.layers = [];
-	    this.color = "#df4b26";
 
 	    for (i = 0; i < 5; i++) {
 	        this.layers.push(new Layer(width,height));
@@ -23,20 +22,21 @@ define(['layer'], function(Layer) {
         };
 
         component_to_hex = function(c) {
-		    var hex = c.toString(16);
+		    var hex = parseInt(c).toString(16);
+
 		    return hex.length == 1 ? "0" + hex : hex;
 		};
-
+		
 		this.to_hex = function(r, g, b) {
 		    return "#" + component_to_hex(r) + component_to_hex(g) + component_to_hex(b);
 		};
 
 		this.set_rgb = function(r, g, b) {
-			this.color = this.to_hex(r, g, b);
+			user_state.active_color = this.to_hex(r, g, b);
 		};
 
 		this.set_hex = function(hex) {
-			this.color = hex;
+			user_state.active_color = hex;
 		};
 
 		//Tool should draw to the canvas within its class
@@ -66,7 +66,7 @@ define(['layer'], function(Layer) {
 
 			context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
 
-			context.strokeStyle = this.color;
+			context.strokeStyle = user_state.active_color;
 			context.lineJoin = "round";
 			context.lineWidth = 5;
 					
