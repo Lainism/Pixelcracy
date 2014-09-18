@@ -26,6 +26,8 @@ define(['pen', 'jquery'],function(Pen, $) {
             redbutton.setAttribute("name", "red");
             redbutton.setAttribute("min", "0");
             redbutton.setAttribute("max", "255");
+            redbutton.style.borderStyle="solid";
+            redbutton.style.borderColor="red";
 
             var greenbutton = document.getElementById("green");
             greenbutton.setAttribute("type", "number");
@@ -33,6 +35,8 @@ define(['pen', 'jquery'],function(Pen, $) {
             greenbutton.setAttribute("name", "green");
             greenbutton.setAttribute("min", "0");
             greenbutton.setAttribute("max", "255");
+            greenbutton.style.borderStyle="solid";
+            greenbutton.style.borderColor="green";
 
             var bluebutton = document.getElementById("blue");
             bluebutton.setAttribute("type", "number");
@@ -40,6 +44,8 @@ define(['pen', 'jquery'],function(Pen, $) {
             bluebutton.setAttribute("name", "blue");
             bluebutton.setAttribute("min", "0");
             bluebutton.setAttribute("max", "255");
+            bluebutton.style.borderStyle="solid";
+            bluebutton.style.borderColor="blue";
 
             var colorbutton = document.getElementById("color");
             colorbutton.setAttribute("type", "color");
@@ -51,7 +57,7 @@ define(['pen', 'jquery'],function(Pen, $) {
                 var g = $("#green").val();
                 var b = $("#blue").val();
 
-                console.log("r: " + r + " g: " + g + " b: " + b);
+                console.log("r: " + r + " g: " + g + " b: " + b + " hex: " + pic.to_hex(r, g, b));
                 pic.set_rgb(r, g, b);
                 colorbutton.setAttribute("value", pic.to_hex(r, g, b));
             };
