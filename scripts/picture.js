@@ -3,6 +3,7 @@ define(['layer'], function(Layer) {
 	function Picture(width, height, user_state){
 	    this.size = [width, height];
 	    this.layers = [];
+            this.history = [];
 
 	    for (i = 0; i < 5; i++) {
 	        this.layers.push(new Layer(width,height));
@@ -44,33 +45,42 @@ define(['layer'], function(Layer) {
 		//Maybe we could handle each stroke as an event that would be sent here?
 		//Would help making undo
 		this.add_stroke = function(x, y, dragging) {
+
+                        if (!dragging){this.push_history();}
 			clickX.push(x);
 			clickY.push(y);
 			clickDrag.push(dragging);
+			this.redraw();
+		};
+
+		this.push_history = function() {
+                        canvas = document.getElementById("canvas");
+                        context = canvas.getContext("2d");
+
+			w = parseInt(canvas.width);
+			h = parseInt(canvas.height);
+			data = context.getImageData(0,0,w,h);
+                        this.history.push(data);
 		};
 
         this.undo = function() {
-            while(clickDrag[clickDrag.length-1]) {
-                clickDrag.pop();
-                clickX.pop();
-                clickY.pop();
-            }
-            clickDrag.pop();
-            clickX.pop();
-            clickY.pop();
-            this.redraw();
+
+            canvas = document.getElementById("canvas");
+            context = canvas.getContext("2d");
+            if (this.history.length==0) {return}
+            context.putImageData(this.history.pop(),0,0);
+
         };
 
 		this.redraw = function() {
             context = document.getElementById("canvas").getContext("2d");
 
-			context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
 
 			context.strokeStyle = user_state.active_color;
 			context.lineJoin = "round";
 			context.lineWidth = 5;
 					
-			for(var i=0; i < clickX.length; i++) {		
+			var i= clickX.length-1;		
 			context.beginPath();
 			if(clickDrag[i] && i){
 			  context.moveTo(clickX[i-1], clickY[i-1]);
@@ -80,7 +90,7 @@ define(['layer'], function(Layer) {
 			 context.lineTo(clickX[i], clickY[i]);
 			 context.closePath();
 			 context.stroke();
-			}
+			
 		};
 
         }
