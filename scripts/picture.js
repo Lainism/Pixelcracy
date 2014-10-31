@@ -1,9 +1,27 @@
 define(['layer'], function(Layer) {
 
 	function Picture(width, height, user_state){
+
+		var canvas = document.getElementById("canvas");
+        var context = canvas.getContext("2d");
+        var w = width;
+        var h = height;
+
+		this.get_current_image = function () {
+			var data = canvas.toDataURL();
+			var ni = new Image();
+			ni.onload = function(){
+				context.drawImage(ni,0,0);
+			}
+			ni.src = data;
+
+			return ni;
+		}
+
 	    this.size = [width, height];
 	    this.layers = [];
-            this.history = [];
+        this.history = [];
+        this.img = this.get_current_image();
 
 	    for (i = 0; i < 5; i++) {
 	        this.layers.push(new Layer(width,height));
@@ -22,7 +40,7 @@ define(['layer'], function(Layer) {
             } : null;
         };
 
-        component_to_hex = function(c) {
+        var component_to_hex = function(c) {
 		    var hex = parseInt(c).toString(16);
 
 		    return hex.length == 1 ? "0" + hex : hex;
@@ -40,6 +58,8 @@ define(['layer'], function(Layer) {
 			user_state.active_color = hex;
 		};
 
+		var u = user_state;
+
 		//Tool should draw to the canvas within its class
 		//This is merely a temporary solution
 		//Maybe we could handle each stroke as an event that would be sent here?
@@ -50,7 +70,17 @@ define(['layer'], function(Layer) {
 			clickX.push(x);
 			clickY.push(y);
 			clickDrag.push(dragging);
-			this.redraw();
+
+			var i= clickX.length-1;		
+			context.beginPath();
+			if(clickDrag[i] && i){
+			  context.moveTo(clickX[i-1], clickY[i-1]);
+			 }else{
+			   context.moveTo(clickX[i]-1, clickY[i]);
+			 }
+			context.lineTo(clickX[i], clickY[i]);
+			context.closePath();
+			context.stroke();
 		};
 
 		this.push_history = function() {
@@ -73,24 +103,12 @@ define(['layer'], function(Layer) {
         };
 
 		this.redraw = function() {
-            context = document.getElementById("canvas").getContext("2d");
-
-
-			context.strokeStyle = user_state.active_color;
-			context.lineJoin = "round";
-			context.lineWidth = 5;
-					
-			var i= clickX.length-1;		
-			context.beginPath();
-			if(clickDrag[i] && i){
-			  context.moveTo(clickX[i-1], clickY[i-1]);
-			 }else{
-			   context.moveTo(clickX[i]-1, clickY[i]);
-			 }
-			 context.lineTo(clickX[i], clickY[i]);
-			 context.closePath();
-			 context.stroke();
-			
+			this.img = this.get_current_image();
+			context.clearRect(0, 0, w, h);
+			//console.log(w + " = " + context.width + ", " + h + " = " + context.height);
+			context.drawImage(this.img, user_state.zoomx, user_state.zoomy, user_state.panx*user_state.zoom, user_state.pany*user_state.zoom);
+			//context.drawImage(this.img,0,0);
+			console.log(user_state.zoomx + " " + user_state.zoomy +" "+ user_state.panx*user_state.zoom +" "+ user_state.pany*user_state.zoom);
 		};
 
         }

@@ -19,9 +19,11 @@ define(['user_state', 'picture', 'jquery'], function(UserState, Picture, $){
 		};
 
 		this.paint = function(x, y, dragging) {
-			var picture = user_state.active_picture;
-			picture.add_stroke(x, y, dragging);
-            picture.redraw();
+			//Tool specific override
+		};
+
+		this.right_click = function(x, y, dragging) {
+			//Tool specific override
 		};
 
 	};

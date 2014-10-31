@@ -1,13 +1,9 @@
-define(['pen', 'jquery'],function(Pen, $) {
+define(['pen', 'zoom', 'jquery'],function(Pen, Zoom, $) {
 	return {
 		init: function(user_state){
-			var ctx = document.getElementById("canvas");
-
-			ctx.width = window.innerWidth/2;
-			ctx.height = window.innerHeight/2;
 
 			var set_tool = function(tool){
-			    console.log("using a pen");
+			    console.log("now using tool: " + tool.name);
 			    user_state.active_tool = new tool(user_state);
 			};
 
@@ -18,6 +14,18 @@ define(['pen', 'jquery'],function(Pen, $) {
 			penbutton.setAttribute("type", "button");
 			penbutton.setAttribute("value", "Pen");
 			penbutton.setAttribute("name", "penbutton");
+
+			var zoombutton = document.createElement("input");
+			zoombutton.setAttribute("type", "button");
+			zoombutton.setAttribute("value", "Zoom");
+			zoombutton.setAttribute("name", "zoombutton");
+			toolbar.appendChild(zoombutton);
+
+			var panbutton = document.createElement("input");
+			panbutton.setAttribute("type", "button");
+			panbutton.setAttribute("value", "Move");
+			panbutton.setAttribute("name", "panbutton");
+			toolbar.appendChild(panbutton);
 
 			var redbutton = document.getElementById("red");
 			redbutton.setAttribute("type", "number");
@@ -77,8 +85,24 @@ define(['pen', 'jquery'],function(Pen, $) {
 				bluebutton.value = rgb.b;
 			};
 
+			var zoomtoolchange = function(event) {
+				set_tool(Zoom);
+			}
+
+			var pantoolchange = function(event) {
+				//set_tool(Pan);
+			};
+
 			penbutton.addEventListener("click", function(event) {
 				set_tool(Pen);
+			});
+
+			zoombutton.addEventListener("click", function(event) {
+				set_tool(Zoom);
+			});
+
+			panbutton.addEventListener("click", function(event) {
+				set_tool(Pan);
 			});
 
 			undobutton.addEventListener("click", function(event) {

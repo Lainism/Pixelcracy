@@ -25,6 +25,10 @@ define(['jquery'],function($) {
 		$('#canvas').mouseleave(function(e){
 			this.paint = false;
 		});
+/*
+		$('#canvas').contextmenu(function(e){
+			state.active_tool.right_click();
+		});*/
     }
     return InputHandler;
 });
