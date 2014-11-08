@@ -66,6 +66,7 @@ define(['layer'], function(Layer) {
 			clickX.push(x);
 			clickY.push(y);
 			clickDrag.push(dragging);
+            context.strokeStyle=u.active_color;
 
 			var i= clickX.length-1;		
 			context.beginPath();
