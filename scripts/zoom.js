@@ -10,9 +10,9 @@ define(['tool'],function(Tool){
 	    	if (dragging) {return};
 
 	    	//Zoom in
-	    	user_state.zoomx = x;
-	    	user_state.zoomy = y;
-	    	user_state.zoom *= 0.5;
+	    	user_state.panx = x;
+	    	user_state.pany = y;
+	    	user_state.zoom *= 2;
 	    	user_state.get_picture().redraw();
 
 	    	//console.log("x: " + user_state.zoomx + " y: " + user_state.zoomy + " scale: " + user_state.zoomscale);
@@ -20,9 +20,9 @@ define(['tool'],function(Tool){
 
 	    zoom.right_click = function(x, y) {
 	    	//Zoom out
-	    	user_state.zoomx = x;
-	    	user_state.zoomy = y;
-	    	user_state.zoom *= 2;
+	    	user_state.panx = x;
+	    	user_state.pany = y;
+	    	user_state.zoom *= 0.5;
 	    	user_state.get_picture().redraw();
 	    };
 

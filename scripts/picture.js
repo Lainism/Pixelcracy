@@ -60,10 +60,6 @@ define(['layer'], function(Layer) {
 
 		var u = user_state;
 
-		//Tool should draw to the canvas within its class
-		//This is merely a temporary solution
-		//Maybe we could handle each stroke as an event that would be sent here?
-		//Would help making undo
 		this.add_stroke = function(x, y, dragging) {
 
                         if (!dragging){this.push_history();}
@@ -81,11 +77,10 @@ define(['layer'], function(Layer) {
 			context.lineTo(clickX[i], clickY[i]);
 			context.closePath();
 			context.stroke();
+            this.img = this.get_current_image();
 		};
 
 		this.push_history = function() {
-                        canvas = document.getElementById("canvas");
-                        context = canvas.getContext("2d");
 
 			w = parseInt(canvas.width);
 			h = parseInt(canvas.height);
@@ -95,20 +90,16 @@ define(['layer'], function(Layer) {
 
         this.undo = function() {
 
-            canvas = document.getElementById("canvas");
-            context = canvas.getContext("2d");
             if (this.history.length==0) {return}
             context.putImageData(this.history.pop(),0,0);
 
         };
 
 		this.redraw = function() {
-			this.img = this.get_current_image();
-			context.clearRect(0, 0, w, h);
-			//console.log(w + " = " + context.width + ", " + h + " = " + context.height);
-			context.drawImage(this.img, user_state.zoomx, user_state.zoomy, user_state.panx*user_state.zoom, user_state.pany*user_state.zoom);
-			//context.drawImage(this.img,0,0);
-			console.log(user_state.zoomx + " " + user_state.zoomy +" "+ user_state.panx*user_state.zoom +" "+ user_state.pany*user_state.zoom);
+			//this.img = this.get_current_image();
+            context.fillStyle = "white";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+			context.drawImage(this.img, user_state.panx, user_state.pany, user_state.zoom*u.w, user_state.zoom*u.h);
 		};
 
         }
