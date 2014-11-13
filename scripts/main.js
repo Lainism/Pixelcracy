@@ -10,5 +10,7 @@ require(['user_state','user_interface','input'], function(UserState, UserInterfa
     console.log(state.get_alpha());
     UserInterface.init(state);
     InputHandler(state);
+
+    state.active_picture.redraw();
 });
 

@@ -1,4 +1,4 @@
-define(['pen', 'zoom', 'jquery'],function(Pen, Zoom, $) {
+define(['pen', 'zoom', 'jquery','utility'],function(Pen, Zoom, $, Util) {
 	return {
 		init: function(user_state){
 
@@ -29,7 +29,7 @@ define(['pen', 'zoom', 'jquery'],function(Pen, Zoom, $) {
 
 			var redbutton = document.getElementById("red");
 			redbutton.setAttribute("type", "number");
-			redbutton.setAttribute("value", "" + pic.to_rgb(user_state.active_color).r);
+			redbutton.setAttribute("value", "" + Util.to_rgb(user_state.active_color).r);
 			redbutton.setAttribute("name", "red");
 			redbutton.setAttribute("min", "0");
 			redbutton.setAttribute("max", "255");
@@ -38,7 +38,7 @@ define(['pen', 'zoom', 'jquery'],function(Pen, Zoom, $) {
 
 			var greenbutton = document.getElementById("green");
 			greenbutton.setAttribute("type", "number");
-			greenbutton.setAttribute("value", "" + pic.to_rgb(user_state.active_color).g);
+			greenbutton.setAttribute("value", "" + Util.to_rgb(user_state.active_color).g);
 			greenbutton.setAttribute("name", "green");
 			greenbutton.setAttribute("min", "0");
 			greenbutton.setAttribute("max", "255");
@@ -47,7 +47,7 @@ define(['pen', 'zoom', 'jquery'],function(Pen, Zoom, $) {
 
 			var bluebutton = document.getElementById("blue");
 			bluebutton.setAttribute("type", "number");
-			bluebutton.setAttribute("value", "" + pic.to_rgb(user_state.active_color).b);
+			bluebutton.setAttribute("value", "" + Util.to_rgb(user_state.active_color).b);
 			bluebutton.setAttribute("name", "blue");
 			bluebutton.setAttribute("min", "0");
 			bluebutton.setAttribute("max", "255");
@@ -76,7 +76,7 @@ define(['pen', 'zoom', 'jquery'],function(Pen, Zoom, $) {
 
 			var color_picker_change = function(event) {
 				var c = $("#color").val();
-				var rgb = pic.to_rgb(c);
+				var rgb = Util.to_rgb(c);
 				console.log(c);
 
 				pic.set_hex(c);

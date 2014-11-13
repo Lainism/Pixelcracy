@@ -6,39 +6,35 @@ define(['layer'], function(Layer) {
         var context = canvas.getContext("2d");
         var w = width;
         var h = height;
-
-		this.get_current_image = function () {
-			var data = canvas.toDataURL();
-			var ni = new Image();
-			ni.onload = function(){
-				context.drawImage(ni,0,0);
-			}
-			ni.src = data;
-
-			return ni;
-		}
+		var u = user_state;
 
 	    this.size = [width, height];
 	    this.layers = [];
         this.history = [];
-        this.img = this.get_current_image();
 
 	    for (i = 0; i < 5; i++) {
 	        this.layers.push(new Layer(width,height));
 	    }
 
+        //test image
+
+        for (i = 0; i < width; i++) {
+            for (j = 0; j < height; j++) {
+                this.layers[0].pixelarray[i][j] = '#FF0000';
+            }
+        }
+
+
+        for (i = 0; i < 40; i++) {
+            for (j = 0; j < 20; j++) {
+                this.layers[1].pixelarray[i][j] = '#FFFF00';
+            }
+        }
+
+        /*
 		var clickX = new Array();
 		var clickY = new Array();
 		var clickDrag = new Array();
-
-		this.to_rgb = function (hex) {
-            var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-                return result ? {
-                    r: parseInt(result[1], 16),
-                    g: parseInt(result[2], 16),
-                    b: parseInt(result[3], 16)
-            } : null;
-        };
 
         var component_to_hex = function(c) {
 		    var hex = parseInt(c).toString(16);
@@ -58,7 +54,6 @@ define(['layer'], function(Layer) {
 			user_state.active_color = hex;
 		};
 
-		var u = user_state;
 
 		this.add_stroke = function(x, y, dragging) {
 
@@ -95,12 +90,12 @@ define(['layer'], function(Layer) {
             context.putImageData(this.history.pop(),0,0);
 
         };
+        */
 
 		this.redraw = function() {
-			//this.img = this.get_current_image();
-            context.fillStyle = "white";
-            context.fillRect(0, 0, canvas.width, canvas.height);
-			context.drawImage(this.img, user_state.panx, user_state.pany, user_state.zoom*u.w, user_state.zoom*u.h);
+			for (i = 0; i < this.layers.length; i++) {
+                this.layers[i].redraw(context);
+	        }
 		};
 
         }
