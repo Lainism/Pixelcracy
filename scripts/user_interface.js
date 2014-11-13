@@ -69,9 +69,9 @@ define(['pen', 'zoom', 'jquery','utility'],function(Pen, Zoom, $, Util) {
 				var g = $("#green").val();
 				var b = $("#blue").val();
 
-				console.log("r: " + r + " g: " + g + " b: " + b + " hex: " + pic.to_hex(r, g, b));
-				pic.set_rgb(r, g, b);
-				colorbutton.setAttribute("value", pic.to_hex(r, g, b));
+				console.log("r: " + r + " g: " + g + " b: " + b + " hex: " + Util.to_hex(r, g, b));
+				user_state.set_rgb(r, g, b);
+				colorbutton.setAttribute("value", Util.to_hex(r, g, b));
 			};
 
 			var color_picker_change = function(event) {
@@ -79,7 +79,7 @@ define(['pen', 'zoom', 'jquery','utility'],function(Pen, Zoom, $, Util) {
 				var rgb = Util.to_rgb(c);
 				console.log(c);
 
-				pic.set_hex(c);
+				user_state.set_hex(c);
 				redbutton.value = rgb.r;
 				greenbutton.value = rgb.g;
 				bluebutton.value = rgb.b;

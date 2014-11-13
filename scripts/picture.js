@@ -13,69 +13,27 @@ define(['layer'], function(Layer) {
         this.history = [];
 
 	    for (i = 0; i < 5; i++) {
-	        this.layers.push(new Layer(width,height));
+	        this.layers.push(new Layer(this,width,height));
 	    }
 
         //test image
 
         for (i = 0; i < width; i++) {
             for (j = 0; j < height; j++) {
-                this.layers[0].pixelarray[i][j] = '#FF0000';
+                this.layers[0].pixelarray[i][j] = '#330300';
             }
         }
+        this.layers[0].cached = false;
 
 
-        for (i = 0; i < 40; i++) {
-            for (j = 0; j < 20; j++) {
+        for (i = 40; i < 100; i++) {
+            for (j = 20; j < 50; j++) {
                 this.layers[1].pixelarray[i][j] = '#FFFF00';
             }
         }
+        this.layers[1].cached = false;
 
         /*
-		var clickX = new Array();
-		var clickY = new Array();
-		var clickDrag = new Array();
-
-        var component_to_hex = function(c) {
-		    var hex = parseInt(c).toString(16);
-
-		    return hex.length == 1 ? "0" + hex : hex;
-		};
-		
-		this.to_hex = function(r, g, b) {
-		    return "#" + component_to_hex(r) + component_to_hex(g) + component_to_hex(b);
-		};
-
-		this.set_rgb = function(r, g, b) {
-			user_state.active_color = this.to_hex(r, g, b);
-		};
-
-		this.set_hex = function(hex) {
-			user_state.active_color = hex;
-		};
-
-
-		this.add_stroke = function(x, y, dragging) {
-
-                        if (!dragging){this.push_history();}
-			clickX.push(x);
-			clickY.push(y);
-			clickDrag.push(dragging);
-            context.strokeStyle=u.active_color;
-
-			var i= clickX.length-1;		
-			context.beginPath();
-			if(clickDrag[i] && i){
-			  context.moveTo(clickX[i-1], clickY[i-1]);
-			 }else{
-			   context.moveTo(clickX[i]-1, clickY[i]);
-			 }
-			context.lineTo(clickX[i], clickY[i]);
-			context.closePath();
-			context.stroke();
-            this.img = this.get_current_image();
-		};
-
 		this.push_history = function() {
 
 			w = parseInt(canvas.width);

@@ -4,14 +4,9 @@ define(['tool'],function(Tool){
 	    pen = new Tool(user_state);
 	    pen.name = "pen";
 
-	    var context = document.getElementById("canvas").getContext("2d");
-	    context.lineJoin = "round";
-		context.lineWidth = 5;
-		context.strokeStyle = user_state.active_color;
-
 	    pen.paint = function(x, y, dragging) {
-			var picture = user_state.active_picture;
-			picture.add_stroke(x, y, dragging);
+			var layer = user_state.get_drawing_layer();
+			layer.draw_pixel(x,y,user_state.active_color);
 		};
 
         return pen
