@@ -1,31 +1,40 @@
 define(['tool','picture', 'pen'], function(Tool, Picture, Pen){
 
-        function UserState(){
-	        var canvas = document.getElementById("canvas");
-	        var ctx = canvas.getContext("2d");
-        	this.w = parseInt(window.innerWidth/2);
-        	this.h = parseInt(window.innerHeight/2);
-        	canvas.width = this.w;
-        	canvas.height = this.h;
+		function UserState(){
+			/* UserState stores information about the user related variables. */
 
-	        this.active_tool = new Pen(this);
-	        console.log(this.active_tool.get_name());
-	        this.active_color = "#df4b26";
-	        this.active_layout = "default";
+			//Retrieving the canvas image will be drawn on
+			var canvas = document.getElementById("canvas");
+			var ctx = canvas.getContext("2d");
 
-	        this.alpha = 1;
-	        this.zoom = 1;
+			//Width and height of the picture
+			this.w = parseInt(window.innerWidth/2);
+			this.h = parseInt(window.innerHeight/2);
 
-	        console.log(this.w + " " + this.h);
-	        this.active_picture = new Picture(this.w,this.h, this);
-	        ctx.strokeStyle = this.active_color;
-	        this.panx = 0;
-	        this.pany = 0;
+			//Brush opacity, zoom rate and the current offset of image pan
+			this.alpha = 1;
+			this.zoom = 1;
+			this.panx = 0;
+			this.pany = 0;
 
-	        this.get_alpha = function() { return this.alpha; };
-	        this.get_picture = function() { return this.active_picture; };
-        
-        }
+			//Setting the active variables
+			this.active_picture = new Picture(this.w,this.h, this);
+			this.active_tool = new Pen(this);
+			this.active_color = "#df4b26";
+			this.active_layout = "default";
 
-        return UserState;
+			//Setting the selected brush color to the canvas
+			ctx.strokeStyle = this.active_color;
+
+			//Setting the canvas size
+			canvas.width = this.w;
+			canvas.height = this.h;
+
+			//Getters
+			this.get_alpha = function() { return this.alpha; };
+			this.get_picture = function() { return this.active_picture; };
+		
+		}
+
+		return UserState;
 });

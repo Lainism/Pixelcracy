@@ -1,29 +1,37 @@
 define(['user_state', 'picture', 'jquery'], function(UserState, Picture, $){
 
 	function Tool(user_state){
-                console.log("NEW TOOL SELECTED");
+		/* General class for all the tools */
+
+		//Variables all the tools have
+		this.name = "default";
 		this.size = 1;
 		this.transparency = 0;
-        this.name = "default";
-        this.get_name = function(){ return this.name};
+
+		console.log("NEW TOOL SELECTED");
+
+		//Getters
+		this.get_name = function(){ return this.name};
 		
-		this.change_size = function(new_size) {
+		//Setters
+		this.set_size = function(new_size) {
 			active_size = size;
 		};
 
-		this.change_transparency = function(new_percentage) {
-		//transparency can't be changed if there is no alpha channel
+		this.set_transparency = function(new_percentage) {
+		//Transparency can't be changed if there is no alpha channel
 			if (user.get_alpha() == 1) {
 				transparency = new_percentage;
 			}
 		};
 
+		//Other functions
 		this.paint = function(x, y, dragging) {
-			//Tool specific override
+			//Subclasses will override this
 		};
 
 		this.right_click = function(x, y, dragging) {
-			//Tool specific override
+			//Subclasses will override this
 		};
 
 	};
