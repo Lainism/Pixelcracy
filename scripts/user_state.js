@@ -1,4 +1,4 @@
-define(['tool','picture', 'pen', 'utility'], function(Tool, Picture, Pen, Util){
+define(['tools/tool','picture', 'tools/pen', 'utility'], function(Tool, Picture, Pen, Util){
 
         function UserState(){
 	        var canvas = document.getElementById("canvas");

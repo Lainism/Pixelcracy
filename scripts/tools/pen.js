@@ -1,4 +1,4 @@
-define(['tool'],function(Tool){
+define(['tools/tool'],function(Tool){
 
         function Pen(user_state){
 	    pen = new Tool(user_state);

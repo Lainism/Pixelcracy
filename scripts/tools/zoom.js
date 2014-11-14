@@ -1,4 +1,4 @@
-define(['tool'],function(Tool){
+define(['tools/tool'],function(Tool){
 
         function Zoom(user_state){
 	    zoom = new Tool(user_state);

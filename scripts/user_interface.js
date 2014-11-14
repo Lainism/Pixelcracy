@@ -1,4 +1,4 @@
-define(['pen', 'zoom', 'jquery','utility'],function(Pen, Zoom, $, Util) {
+define(['tools/pen', 'tools/zoom', 'jquery','utility'],function(Pen, Zoom, $, Util) {
 	return {
 		init: function(user_state){
 
