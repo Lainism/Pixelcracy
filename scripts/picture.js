@@ -33,22 +33,18 @@ define(['layer'], function(Layer) {
         }
         this.layers[1].cached = false;
 
-        /*
 		this.push_history = function() {
-
-			w = parseInt(canvas.width);
-			h = parseInt(canvas.height);
-			data = context.getImageData(0,0,w,h);
-                        this.history.push(data);
+            //needs to be reimplemented for pixelarrays
+            //this.history.push(data);
 		};
 
         this.undo = function() {
-
-            if (this.history.length==0) {return}
-            context.putImageData(this.history.pop(),0,0);
+            //needs to be reimplemented for pixelarrays
+            //if (this.history.length==0) {return}
+            //context.putImageData(this.history.pop(),0,0);
 
         };
-        */
+        
 
 		this.redraw = function() {
 			for (i = 0; i < this.layers.length; i++) {

@@ -12,11 +12,6 @@ define([], function() {
         to_hex: function(r, g, b) {
 		    return "#" + component_to_hex(r) + component_to_hex(g) + component_to_hex(b);
 		},
-        component_to_hex: function(c) {
-		    var hex = parseInt(c).toString(16);
-
-		    return hex.length == 1 ? "0" + hex : hex;
-		},
         draw_pixel: function(context,color,x,y) {
             context.fillStyle = color;
             context.beginPath();
@@ -24,10 +19,11 @@ define([], function() {
             context.closePath();
             context.fill();
         },
-
-
-
-
     };
-	
 });
+component_to_hex = function(c) {
+    var hex = parseInt(c).toString(16);
+
+    return hex.length == 1 ? "0" + hex : hex;
+}
+

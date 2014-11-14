@@ -2,7 +2,6 @@ define(['utility'], function(Util) {
 
 	function Layer(picture,width, height){
 	    this.size = [width, height];
-        this.pixelarray = new Array(width);
         this.parentpicture = picture;
 
         this.cached = true;
@@ -10,12 +9,12 @@ define(['utility'], function(Util) {
         //cachedcanvas/cachedcontext saves the rendered bitmap for this layer
         this.cachedcanvas = document.createElement('canvas');
         this.cachedcontext = this.cachedcanvas.getContext("2d");
-        this.cachedcanvas.width = width
-        this.cachedcanvas.height = height
+        this.cachedcanvas.width = width;
+        this.cachedcanvas.height = height;
 
+        this.pixelarray = new Array(width);
         for (var i = 0; i < width; i++) {
-            this.pixelarray[i] = new Array(height);
-        }
+            this.pixelarray[i] = new Array(height);}
 
         this.draw_pixel = function(x,y,color) {
             this.pixelarray[x][y] = color;
