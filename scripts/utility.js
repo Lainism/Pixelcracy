@@ -71,6 +71,26 @@ Util = {
         }
         if (redraw_after) {layer.parentpicture.redraw();}
     },
+    draw_flood_fill: function(layer,x,y,color,redraw_after) {
+        pixelstack = [[x,y]]
+        source_color = layer.pixelarray[x][y];
+        while (pixelstack.length != 0){
+            var p = pixelstack.pop();
+            var x = p[0];
+            var y = p[1];
 
+            if (x<0 || x>=layer.size[0]){continue;}
+            if (y<0 || y>=layer.size[1]){continue;}
+            if (layer.pixelarray[x][y] != source_color) {continue;};
+
+            layer.pixelarray[x][y] = color;
+            pixelstack.push([x,y+1])
+            pixelstack.push([x+1,y])
+            pixelstack.push([x,y-1])
+            pixelstack.push([x-1,y])
+        }
+        layer.cached = false;
+        if (redraw_after) {layer.parentpicture.redraw();}
+    }
 };
 
