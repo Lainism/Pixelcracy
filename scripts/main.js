@@ -7,7 +7,6 @@ requirejs.config({
 require(['user_state','user_interface','input'], function(UserState, UserInterface,InputHandler) {
 	document.getElementById("canvas").style.borderStyle="solid";
     var state = new UserState();
-    console.log(state.get_alpha());
     UserInterface.init(state);
     InputHandler(state);
 

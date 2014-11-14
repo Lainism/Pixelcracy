@@ -1,4 +1,4 @@
-define(['layer'], function(Layer) {
+define(['layer','utility'], function(Layer,Util) {
 
 	function Picture(width, height, user_state){
 
@@ -20,7 +20,7 @@ define(['layer'], function(Layer) {
 
         for (i = 0; i < width; i++) {
             for (j = 0; j < height; j++) {
-                this.layers[0].pixelarray[i][j] = '#330300';
+                this.layers[0].pixelarray[i][j] = '#FF0000';
             }
         }
         this.layers[0].cached = false;

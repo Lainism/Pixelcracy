@@ -16,12 +16,6 @@ define(['utility'], function(Util) {
         for (var i = 0; i < width; i++) {
             this.pixelarray[i] = new Array(height);}
 
-        this.draw_pixel = function(x,y,color) {
-            this.pixelarray[x][y] = color;
-            Util.draw_pixel(this.cachedcontext,color,x,y);
-            this.parentpicture.redraw();
-        }
-
         this.redraw = function(context) {
             if (!this.cached) {
                 minx=0;
@@ -35,13 +29,14 @@ define(['utility'], function(Util) {
                         //draw the pixel if it is defined
                         if (typeof color !== 'undefined') {
                             if ((0<=i && i<=width) && (0<=j && j<=height)){
-                                Util.draw_pixel(this.cachedcontext,color,i,j);
+                                Util.draw_pixel_to_context(this.cachedcontext,i,j,color);
                             }
                         }
                     }
                 }
                 this.cached = true;
             }
+            //draw the cached image to the screen context
             context.drawImage(this.cachedcanvas,0,0);
         };
 

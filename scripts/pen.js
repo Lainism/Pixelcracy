@@ -6,7 +6,7 @@ define(['tool'],function(Tool){
 
 	    pen.paint = function(x, y, dragging) {
 			var layer = user_state.get_drawing_layer();
-			layer.draw_pixel(x,y,user_state.active_color);
+			Util.draw_pixel_to_layer(layer,x,y,user_state.active_color);
 		};
 
         return pen
