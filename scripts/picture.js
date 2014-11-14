@@ -33,6 +33,8 @@ define(['layer','utility'], function(Layer,Util) {
         }
         this.layers[1].cached = false;
 
+        Util.draw_circle(this.layers[2],200,200,200,'#F0F0F0');
+
 		this.push_history = function() {
             //needs to be reimplemented for pixelarrays
             //this.history.push(data);

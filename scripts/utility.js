@@ -32,17 +32,45 @@ Util = {
         context.closePath();
         context.fill();
     },
-    draw_pixel_to_layer: function(layer,x,y,color) {
+    draw_pixel_to_layer: function(layer,x,y,color,redraw_after) {
+        if (x<0 || x>=layer.size[0]){return;}
+        if (y<0 || y>=layer.size[1]){return;}
         layer.pixelarray[x][y] = color;
         Util.draw_pixel_to_context(layer.cachedcontext,x,y,color);
 
-        layer.parentpicture.redraw();
+        if (redraw_after){layer.parentpicture.redraw();}
     },
 
     //the more advanced drawing stuff
     //use draw_pixel_to_layer as the elementary operation
-    /*
 
-    */
+    draw_circle: function(layer,x,y,r,color,redraw_after) {
+        //midpoint circle algorithm
+        var xx = r;
+        var yy = 0;
+        var x0 = x;
+        var y0 = y;
+        var rError = 1-r;
+
+        while (xx >= yy) {
+            Util.draw_pixel_to_layer(layer, xx+x0, yy+y0,color,false);
+            Util.draw_pixel_to_layer(layer,-xx+x0, yy+y0,color,false);
+            Util.draw_pixel_to_layer(layer, xx+x0,-yy+y0,color,false);
+            Util.draw_pixel_to_layer(layer,-xx+x0,-yy+y0,color,false);
+            Util.draw_pixel_to_layer(layer, yy+x0, xx+y0,color,false);
+            Util.draw_pixel_to_layer(layer,-yy+x0, xx+y0,color,false);
+            Util.draw_pixel_to_layer(layer, yy+x0,-xx+y0,color,false);
+            Util.draw_pixel_to_layer(layer,-yy+x0,-xx+y0,color,false);
+            yy += 1;
+            if (rError < 0) {
+                rError += 2*yy + 1;
+            } else {
+                xx -= 1;
+                rError += 2*(yy - xx + 1);
+            }
+        }
+        if (redraw_after) {layer.parentpicture.redraw();}
+    },
+
 };
 
