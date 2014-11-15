@@ -1,4 +1,4 @@
-define(['tools/pen', 'tools/zoom', 'jquery','utility'],function(Pen, Zoom, $, Util) {
+define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pen, Bucket, Zoom, $, Util) {
 	return {
 		init: function(user_state){
 
@@ -14,6 +14,11 @@ define(['tools/pen', 'tools/zoom', 'jquery','utility'],function(Pen, Zoom, $, Ut
 			penbutton.setAttribute("type", "button");
 			penbutton.setAttribute("value", "Pen");
 			penbutton.setAttribute("name", "penbutton");
+
+			var bucketbutton = document.getElementById("bucket");
+			bucketbutton.setAttribute("type", "button");
+			bucketbutton.setAttribute("value", "Bucket");
+			bucketbutton.setAttribute("name", "bucketbutton");
 
 			var zoombutton = document.createElement("input");
 			zoombutton.setAttribute("type", "button");
@@ -95,6 +100,10 @@ define(['tools/pen', 'tools/zoom', 'jquery','utility'],function(Pen, Zoom, $, Ut
 
 			penbutton.addEventListener("click", function(event) {
 				set_tool(Pen);
+			});
+
+			bucketbutton.addEventListener("click", function(event) {
+				set_tool(Bucket);
 			});
 
 			zoombutton.addEventListener("click", function(event) {
