@@ -8,20 +8,21 @@ define(['tools/tool','picture', 'tools/pen', 'utility'], function(Tool, Picture,
         	canvas.width = this.w;
         	canvas.height = this.h;
 
-	        this.active_tool = new Pen(this);
-	        console.log(this.active_tool.get_name());
-	        this.active_color = "#df4b26";
-	        this.active_layout = "default";
-
-	        this.alpha = 1;
-	        this.zoom = 1;
-            this.active_layer = 0;
-
-	        console.log(this.w + " " + this.h);
+        	//values related to the picture
 	        this.active_picture = new Picture(this.w,this.h, this);
-	        ctx.strokeStyle = this.active_color;
+	        this.active_layout = "default";
+			this.active_layer = 0;
+	        this.zoom = 1;
 	        this.panx = 0;
 	        this.pany = 0;
+
+	        //values related to drawing
+	        this.active_tool = new Pen(this);
+	        	console.log(this.active_tool.get_name());
+	        this.active_color = "#df4b26";
+	        	console.log(this.w + " " + this.h);
+	        this.alpha = 1;
+	        ctx.strokeStyle = this.active_color;
 
 	        this.get_alpha = function() { return this.alpha; };
 	        this.get_picture = function() { return this.active_picture; };

@@ -5,7 +5,6 @@ define([], function() {
 Util = {
 
     //data translation
-
 	to_rgb: function (hex) {
         var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
         return result ? {
@@ -24,7 +23,6 @@ Util = {
     },
 
     //elementary drawing stuff of individual pixels
-
     draw_pixel_to_context: function(context,x,y,color) {
         context.fillStyle = color;
         context.beginPath();
@@ -41,9 +39,40 @@ Util = {
         if (redraw_after){layer.parentpicture.redraw();}
     },
 
+    //Bresenham's line algorithm
+    bresenham: function(layer, x0, x1, y0, y1, color, redraw_after) {
+        var x = x0;
+        var y = y0;
+        var deltax = Math.abs(x1 - x0);
+        var deltay = Math.abs(y1 - y0);
+        var sx = (x0 < x1) ? 1 : -1;
+        var sy = (y0 < y1) ? 1 : -1;
+        var err = deltax - deltay;
+
+        //draw the initial point
+        Util.draw_pixel_to_layer(layer, x, y, color, false);
+
+        //given values must be integers or this comparison might fail
+        while (!((x == x1) && (y == y1))) {
+            var e2 = err << 1;
+            if (e2 > -deltay) {
+                err -= deltay;
+                x+= sx;
+            } else if (e2 < deltax) {
+                err += deltax;
+                y += sy;
+            }
+
+            //draw the pixel
+            Util.draw_pixel_to_layer(layer, x, y, color, false);
+        }
+
+        //set line for redraw
+        if (redraw_after) {layer.parentpicture.redraw();}
+    },
+
     //the more advanced drawing stuff
     //use draw_pixel_to_layer as the elementary operation
-
     draw_circle: function(layer,x,y,r,color,redraw_after) {
         //midpoint circle algorithm
         var xx = r;
