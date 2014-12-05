@@ -1,14 +1,15 @@
 define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pen, Bucket, Zoom, $, Util) {
 	return {
 		init: function(user_state){
-
-			var set_tool = function(tool){
-			    console.log("now using tool: " + tool.name);
-			    user_state.active_tool = new tool(user_state);
-			};
+			/*
+			*  This file defines an UI for the tools in the toolbar and their inputs.
+			*  For the interaction with the canvas, see input.js
+			*/
 
 			var toolbar = document.getElementById("toolbar");
 			var pic = user_state.get_picture();
+
+			// Defining the buttons and the input fields on the toolbar
 
 			var penbutton = document.getElementById("pen");
 			penbutton.setAttribute("type", "button");
@@ -69,6 +70,15 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 			undobutton.setAttribute("value", "Undo");
 			undobutton.setAttribute("name", "undobutton");
 
+			// Helper function to changing the tools
+
+			var set_tool = function(tool){
+			    console.log("now using tool: " + tool.name);
+			    user_state.active_tool = new tool(user_state);
+			};
+
+			// Changing the color by using the rgb input fields
+
 			var color_change = function(event) {
 				var r = $("#red").val();
 				var g = $("#green").val();
@@ -78,6 +88,8 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 				user_state.set_rgb(r, g, b);
 				colorbutton.setAttribute("value", Util.to_hex(r, g, b));
 			};
+
+			// Changing the color by using the color picker button
 
 			var color_picker_change = function(event) {
 				var c = $("#color").val();
@@ -90,6 +102,8 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 				bluebutton.value = rgb.b;
 			};
 
+			// Changing to another tool
+
 			var zoomtoolchange = function(event) {
 				set_tool(Zoom);
 			}
@@ -98,26 +112,13 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 				//set_tool(Pan);
 			};
 
-			penbutton.addEventListener("click", function(event) {
-				set_tool(Pen);
-			});
+			// Adding event listeners to the buttons
 
-			bucketbutton.addEventListener("click", function(event) {
-				set_tool(Bucket);
-			});
-
-			zoombutton.addEventListener("click", function(event) {
-				set_tool(Zoom);
-			});
-
-			panbutton.addEventListener("click", function(event) {
-				set_tool(Pan);
-			});
-
-			undobutton.addEventListener("click", function(event) {
-				user_state.active_picture.undo();
-			});
-
+			penbutton.addEventListener("click", function(event) { set_tool(Pen); });
+			bucketbutton.addEventListener("click", function(event) { set_tool(Bucket); });
+			zoombutton.addEventListener("click", function(event) { set_tool(Zoom); });
+			panbutton.addEventListener("click", function(event) { set_tool(Pan); });
+			undobutton.addEventListener("click", function(event) { user_state.active_picture.undo(); });
 			redbutton.addEventListener("change", color_change);
 			greenbutton.addEventListener("change", color_change);
 			bluebutton.addEventListener("change", color_change);

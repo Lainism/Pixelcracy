@@ -1,10 +1,15 @@
+/*
+*  Util defines a list of helper functions,
+*  most of them having to do with the low level implementation
+*/
+
 define([], function() {
     return Util;
 });
 
 Util = {
 
-    //data translation
+    // Translating the colors from hex to rgb and rgb to hex
 	to_rgb: function (hex) {
         var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
         return result ? {
@@ -22,7 +27,7 @@ Util = {
         return hex.length == 1 ? "0" + hex : hex;
     },
 
-    //elementary drawing stuff of individual pixels
+    // Drawing invidual pixels from layers to the context
     draw_pixel_to_context: function(context,x,y,color) {
         context.fillStyle = color;
         context.beginPath();
@@ -39,7 +44,7 @@ Util = {
         if (redraw_after){layer.parentpicture.redraw();}
     },
 
-    //Bresenham's line algorithm
+    // Bresenham's line algorithm to connect the dots to lines
     bresenham: function(layer, x0, x1, y0, y1, color, redraw_after) {
         var x = x0;
         var y = y0;
@@ -71,10 +76,9 @@ Util = {
         if (redraw_after) {layer.parentpicture.redraw();}
     },
 
-    //the more advanced drawing stuff
-    //use draw_pixel_to_layer as the elementary operation
+    // Various tool implementations
     draw_circle: function(layer,x,y,r,color,redraw_after) {
-        //midpoint circle algorithm
+        // Using midpoint circle algorithm
         var xx = r;
         var yy = 0;
         var x0 = x;

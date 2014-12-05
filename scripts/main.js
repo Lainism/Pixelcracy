@@ -7,6 +7,7 @@ requirejs.config({
 
 require(['user_state','user_interface','input'], function(UserState, UserInterface,InputHandler) {
 	/* Main is used only for setting up the app */
+	
 	document.getElementById("canvas").style.borderStyle="solid";
     var state = new UserState();
     UserInterface.init(state);

@@ -12,13 +12,11 @@ define(['jquery'],function($) {
 		$('#canvas').mousedown(function(e){
 			if (this.paint == true) { return; }
 
-			// Start painting pixels
-			this.paint = true;
-
 			// Paint the current pixel
 			oldX = e.pageX - this.offsetLeft;
             oldY = e.pageY - this.offsetTop;
-        	state.active_tool.paint(oldX,oldX,oldY,oldY);            
+        	state.active_tool.paint(oldX,oldX,oldY,oldY,this.paint);
+			this.paint = true;         
 		});
 
 		// Paint line when the mouse is dragged
@@ -28,7 +26,7 @@ define(['jquery'],function($) {
 			// Paint the line between old and new positions
 		    var x = e.pageX - this.offsetLeft;
             var y = e.pageY - this.offsetTop;
-			state.active_tool.paint(oldX,x,oldY,y,true);
+			state.active_tool.paint(oldX,x,oldY,y,this.paint);
 
 			// x and y stop being new
 			oldX = x;
