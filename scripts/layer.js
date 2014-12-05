@@ -1,50 +1,42 @@
 define(['utility'], function(Util) {
 
 	function Layer(picture,width, height){
-        /* Layer describes a single layer the picture consists of and draws it to the screen */
-
 	    this.size = [width, height];
         this.parentpicture = picture;
+
         this.cached = true;
         
-        // cachedcanvas/cachedcontext saves the rendered bitmap for this layer
+        //cachedcanvas/cachedcontext saves the rendered bitmap for this layer
         this.cachedcanvas = document.createElement('canvas');
         this.cachedcontext = this.cachedcanvas.getContext("2d");
         this.cachedcanvas.width = width;
         this.cachedcanvas.height = height;
 
-        // Creating an empty two-dimensional matrix
         this.pixelarray = new Array(width);
         for (var i = 0; i < width; i++) {
             this.pixelarray[i] = new Array(height);}
 
         this.redraw = function(context) {
-            // Return if catched
-            if (this.cached) {
-                context.drawImage(this.cachedcanvas,0,0);
-                return;
-            }
+            if (!this.cached) {
+                minx=0;
+                maxx=width;
+                miny=0;
+                maxy=height;
 
-            minx=0;
-            miny=0;
-            maxx=width;
-            maxy=height;
-
-            // Drawing the pixels from the matrix to the context
-            for (var i = minx; i < maxx; i++) {
-                for (var j = miny; j < maxy; j++) {
-                    var color = this.pixelarray[i][j];
-                    // Draw the pixel if it's not undefined
-                    if (typeof color !== 'undefined' && (0<=i && i<=width) && (0<=j && j<=height)){
-                        Util.draw_pixel_to_context(this.cachedcontext,i,j,color);
+                for (var i = minx; i < maxx; i++) {
+                    for (var j = miny; j < maxy; j++) {
+                        var color = this.pixelarray[i][j];
+                        //draw the pixel if it is defined
+                        if (typeof color !== 'undefined') {
+                            if ((0<=i && i<=width) && (0<=j && j<=height)){
+                                Util.draw_pixel_to_context(this.cachedcontext,i,j,color);
+                            }
+                        }
                     }
-                    
                 }
+                this.cached = true;
             }
-            this.cached = true;
-            
-
-            // Draw the cached image to the screen context
+            //draw the cached image to the screen context
             context.drawImage(this.cachedcanvas,0,0);
         };
 
