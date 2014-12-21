@@ -70,6 +70,8 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 			undobutton.setAttribute("value", "Undo");
 			undobutton.setAttribute("name", "undobutton");
 
+			// Layer select
+
 			var layer_number = user_state.layer_count;
 			var layermenu = document.getElementById("layers");
 
@@ -80,6 +82,12 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 				layeroption.appendChild(optionText);
 				layermenu.appendChild(layeroption);
 			}
+
+			// Layer options
+			var lrenamebutton = document.getElementById("lrename");
+			lrenamebutton.setAttribute("type", "button");
+			lrenamebutton.setAttribute("value", "Rename");
+			lrenamebutton.setAttribute("name", "lrename");			
 
 			// Helper function to changing the tools
 
@@ -92,6 +100,15 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 
 			var layer_change = function(event) {
 				user_state.active_layer = layermenu.options[layermenu.selectedIndex].value;
+			}
+
+			// Renaming layer
+
+			var layer_rename = function(event) {
+				var poprename = prompt("Rename the layer as...","");
+				if (poprename != null) {
+					layermenu.options[layermenu.selectedIndex].text = poprename;
+				}
 			}
 
 			// Changing the color by using the rgb input fields
@@ -141,6 +158,7 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 			bluebutton.addEventListener("change", color_change);
 			colorbutton.addEventListener("change", color_picker_change);
 			layermenu.addEventListener("change", layer_change);
+			lrenamebutton.addEventListener("click", layer_rename);
 
 			console.log("UI LOADED");
 		}
