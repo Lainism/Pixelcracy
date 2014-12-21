@@ -6,8 +6,8 @@ define(['utility'], function(Util) {
     	this.w = picture.size[0];
     	this.h = picture.size[1];
 
-        this.push = function(layer){
-        	this.history[this.history.length] = new Memento(layer,0,0,this.w,this.h);
+        this.push = function(){
+        	this.history[this.history.length] = new Memento(picture);
         	console.log("pushed, history len: " + this.history.length)
         	this.future = [];
         };
@@ -17,10 +17,9 @@ define(['utility'], function(Util) {
 
         	/*get the version to be applied from history*/
         	var version = this.history.pop();
-        	var layer = version.layer;
 
         	/*copy the current state into the future (in case theres a redo)*/
-        	this.future[this.future.length] = new Memento(layer,0,0,this.w,this.h);
+        	this.future[this.future.length] = new Memento(picture);
 
         	/*apply the undo*/
         	version.apply();
@@ -31,46 +30,44 @@ define(['utility'], function(Util) {
 
         	/*get the version to be applied from the future*/
         	var version = this.future.pop();
-        	var layer = version.layer;
 
         	/*copy the current state into the history (in case theres an undo)*/
-        	this.history[this.history.length] = new Memento(layer,0,0,this.w,this.h);
+        	this.history[this.history.length] = new Memento(picture);
         	
         	/*apply the redo*/
         	version.apply();
         };
 	}
-	function Memento(layer){
-		/*contains a saved version of a rectangular area of a picture*/
-		this.layer = layer
-		this.width = layer.parentpicture.size[0]
-		this.height = layer.parentpicture.size[1]
+	function Memento(picture){
+		this.width = picture.size[0]
+		this.height = picture.size[1]
 
-        this.pixelarray = new Array(this.width);
+        this.layers = [];
 
         /*when created, remember a certain area*/
-        for (var i = 0; i < this.width; i++) {
-            this.pixelarray[i] = new Array(this.height);
-            for (var j = 0; j < this.height; j++) {
-                if (typeof layer.pixelarray[i][j] !== undefined) {
-                	this.pixelarray[i][j] = layer.pixelarray[i][j];
-                } else {
-                    this.pixelarray[i][j] = -1;
-                }
-            }
+        for (var k = 0; k < picture.layers.length; k++) {
+        	this.layers[k] = [];
+	        for (var i = 0; i < this.width; i++) {
+	            this.layers[k][i] = new Array(this.height);
+	            for (var j = 0; j < this.height; j++) {
+	                this.layers[k][i][j] = picture.layers[k].pixelarray[i][j];
+	            }
+	        }
         }
 
         this.apply = function(){
-        	for (var i = 0; i < this.width; i++) {
- 	            for (var j = 0; j < this.height; j++) {
-	            	layer.pixelarray[i][j] = this.pixelarray[i][j];
-	            }
-        	}
+	        for (var k = 0; k < this.layers.length; k++){
+	        	for (var i = 0; i < this.width; i++) {
+	 	            for (var j = 0; j < this.height; j++) {
+		            	picture.layers[k].pixelarray[i][j] = this.layers[k][i][j];
+		            }
+	        	}
+	        	picture.layers[k].cached = false;
+	        }
 
-            console.log(layer.pixelarray[2][3])
 
-        	layer.cached = false;
-        	layer.parentpicture.redraw();
+    
+        	picture.redraw();
 		}
 	}
 	return UndoHistory;

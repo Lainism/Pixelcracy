@@ -33,6 +33,7 @@ define(['utility'], function(Util) {
             miny=0;
             maxx=width;
             maxy=height;
+            this.cachedcontext.clearRect ( 0 , 0 , this.cachedcanvas.width, this.cachedcanvas.height );
 
             // Drawing the pixels from the matrix to the context
             for (var i = minx; i < maxx; i++) {

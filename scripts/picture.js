@@ -39,9 +39,11 @@ define(['layer','utility','history'], function(Layer,Util,UndoHistory) {
         // Drawing a white circle
         Util.draw_circle(this.layers[2],200,200,200,'#F0F0F0');
 
+        
+
         // Function managing the history
 		this.push_history = function() {
-            this.history.push(this.layers[user_state.active_layer]);
+            this.history.push(user_state.get_drawing_layer());
 		};
 
 		// Function returning the state of image from history
