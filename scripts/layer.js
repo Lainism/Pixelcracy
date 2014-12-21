@@ -16,7 +16,11 @@ define(['utility'], function(Util) {
         // Creating an empty two-dimensional matrix
         this.pixelarray = new Array(width);
         for (var i = 0; i < width; i++) {
-            this.pixelarray[i] = new Array(height);}
+            this.pixelarray[i] = new Array(height);
+            for (var j = 0; j < height; j++) {
+                this.pixelarray[i][j] = -1;
+            }
+        }
 
         this.redraw = function(context) {
             // Return if catched
@@ -34,8 +38,8 @@ define(['utility'], function(Util) {
             for (var i = minx; i < maxx; i++) {
                 for (var j = miny; j < maxy; j++) {
                     var color = this.pixelarray[i][j];
-                    // Draw the pixel if it's not undefined
-                    if (typeof color !== 'undefined' && (0<=i && i<=width) && (0<=j && j<=height)){
+                    // Draw the pixel if it's not -1
+                    if ((color != -1) && (0<=i && i<=width) && (0<=j && j<=height)){
                         Util.draw_pixel_to_context(this.cachedcontext,i,j,color);
                     }
                     

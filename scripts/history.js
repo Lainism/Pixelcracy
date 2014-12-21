@@ -8,7 +8,7 @@ define(['utility'], function(Util) {
 
         this.push = function(layer){
         	this.history[this.history.length] = new Memento(layer,0,0,this.w,this.h);
-        	console.log("pushed")
+        	console.log("pushed, history len: " + this.history.length)
         	this.future = [];
         };
         this.undo = function(){
@@ -52,7 +52,11 @@ define(['utility'], function(Util) {
         for (var i = 0; i < this.width; i++) {
             this.pixelarray[i] = new Array(this.height);
             for (var j = 0; j < this.height; j++) {
-            	this.pixelarray[i][j] = layer.pixelarray[i][j];
+                if (typeof layer.pixelarray[i][j] !== undefined) {
+                	this.pixelarray[i][j] = layer.pixelarray[i][j];
+                } else {
+                    this.pixelarray[i][j] = -1;
+                }
             }
         }
 
@@ -62,6 +66,9 @@ define(['utility'], function(Util) {
 	            	layer.pixelarray[i][j] = this.pixelarray[i][j];
 	            }
         	}
+
+            console.log(layer.pixelarray[2][3])
+
         	layer.cached = false;
         	layer.parentpicture.redraw();
 		}
