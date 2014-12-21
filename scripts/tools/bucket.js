@@ -8,9 +8,8 @@ define(['tools/tool'],function(Tool){
 
 		// Filling happens here
 	    // Overriding the function in Tool
-	    pen.paint = function(x, y, dragging) {
+	    pen.paint = function(oldx,x, oldy,y, dragging) {
 	    	if (dragging) {return};
-	    	
 			var layer = user_state.get_drawing_layer();
 			Util.draw_flood_fill(layer,x,y,user_state.active_color,true);
 		};
