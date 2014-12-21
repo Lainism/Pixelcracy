@@ -75,7 +75,7 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 			var layer_number = user_state.layer_count;
 			var layermenu = document.getElementById("layers");
 
-			for (var i = 1; i <= layer_number; i++) {
+			for (var i = 0; i < layer_number; i++) {
 				var layeroption = document.createElement("OPTION");
 				layeroption.setAttribute("value", i.toString());
 				var optionText = document.createTextNode("Layer " + i.toString());
@@ -87,7 +87,17 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 			var lrenamebutton = document.getElementById("lrename");
 			lrenamebutton.setAttribute("type", "button");
 			lrenamebutton.setAttribute("value", "Rename");
-			lrenamebutton.setAttribute("name", "lrename");			
+			lrenamebutton.setAttribute("name", "lrename");
+
+			var lmoveupbutton = document.getElementById("lmoveup");
+			lmoveupbutton.setAttribute("type", "button");
+			lmoveupbutton.setAttribute("value", "Move up");
+			lmoveupbutton.setAttribute("name", "lmoveup");
+
+			var lmovedownbutton = document.getElementById("lmovedown");
+			lmovedownbutton.setAttribute("type", "button");
+			lmovedownbutton.setAttribute("value", "Move down");
+			lmovedownbutton.setAttribute("name", "lmovedown");
 
 			// Helper function to changing the tools
 
@@ -109,6 +119,31 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 				if (poprename != null) {
 					layermenu.options[layermenu.selectedIndex].text = poprename;
 				}
+			}
+
+			// Moving layer compared to the other layers
+
+			var layer_move = function(direction) {
+				var layer_list = pic.layers;
+				var i = layermenu.selectedIndex;
+				var current_layer = layer_list[i];
+				var current_option = layermenu.options[i];
+
+				// Return if index is out of bounds
+				if ((i == 0 && direction < 0) || (i == (user_state.layer_count - 1) && direction > 0)) { return; }
+
+				layer_list[i] = layer_list[i + direction];
+				layer_list[i + direction] = current_layer;
+
+				var options = $('#layers option');
+				if (direction > 0) {
+					$( options[ i ] ).insertAfter( $( options[ (i + direction) ] ) );
+				} else {
+					$( options[ i ] ).insertBefore( $( options[ (i + direction) ] ) );
+				}
+
+				layermenu.selectedIndex = i + direction;
+				pic.redraw();
 			}
 
 			// Changing the color by using the rgb input fields
@@ -159,6 +194,8 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 			colorbutton.addEventListener("change", color_picker_change);
 			layermenu.addEventListener("change", layer_change);
 			lrenamebutton.addEventListener("click", layer_rename);
+			lmoveupbutton.addEventListener("click", function(event) { layer_move(1); });
+			lmovedownbutton.addEventListener("click", function(event) { layer_move(-1); });
 
 			console.log("UI LOADED");
 		}
