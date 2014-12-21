@@ -70,12 +70,29 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 			undobutton.setAttribute("value", "Undo");
 			undobutton.setAttribute("name", "undobutton");
 
+			var layer_number = user_state.layer_count;
+			var layermenu = document.getElementById("layers");
+
+			for (var i = 1; i <= layer_number; i++) {
+				var layeroption = document.createElement("OPTION");
+				layeroption.setAttribute("value", i.toString());
+				var optionText = document.createTextNode("Layer " + i.toString());
+				layeroption.appendChild(optionText);
+				layermenu.appendChild(layeroption);
+			}
+
 			// Helper function to changing the tools
 
 			var set_tool = function(tool){
 			    console.log("now using tool: " + tool.name);
 			    user_state.active_tool = new tool(user_state);
 			};
+
+			//Changing layer
+
+			var layer_change = function(event) {
+				user_state.active_layer = layermenu.options[layermenu.selectedIndex].value;
+			}
 
 			// Changing the color by using the rgb input fields
 
@@ -123,6 +140,7 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 			greenbutton.addEventListener("change", color_change);
 			bluebutton.addEventListener("change", color_change);
 			colorbutton.addEventListener("change", color_picker_change);
+			layermenu.addEventListener("change", layer_change);
 
 			console.log("UI LOADED");
 		}
