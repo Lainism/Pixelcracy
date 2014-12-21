@@ -15,6 +15,7 @@ define(['tools/tool','picture', 'tools/pen', 'utility'], function(Tool, Picture,
 	        this.active_picture = new Picture(this.w,this.h, this);
 	        this.active_layout = "default";
 			this.active_layer = 0;
+			this.layer_count = 5;
 	        this.zoom = 1;
 	        this.panx = 0;
 	        this.pany = 0;
