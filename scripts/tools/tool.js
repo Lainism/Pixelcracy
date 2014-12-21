@@ -27,6 +27,9 @@ define(['user_state', 'picture', 'jquery'], function(UserState, Picture, $){
 		// Dummy functions that the subclasses will override
 		this.paint = function(x0, x1, y0, y1, dragging) {};
 		this.right_click = function(x, y, dragging) {};
+		this.on_begin_drawing = function() {
+			user_state.get_picture().push_history();
+		}
 
 	};
 	return Tool;

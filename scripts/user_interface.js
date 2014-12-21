@@ -70,6 +70,11 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 			undobutton.setAttribute("value", "Undo");
 			undobutton.setAttribute("name", "undobutton");
 
+			var redobutton = document.getElementById("redo");
+			redobutton.setAttribute("type", "button");
+			redobutton.setAttribute("value", "Redo");
+			redobutton.setAttribute("name", "redobutton");
+
 			// Helper function to changing the tools
 
 			var set_tool = function(tool){
@@ -119,6 +124,7 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 			zoombutton.addEventListener("click", function(event) { set_tool(Zoom); });
 			panbutton.addEventListener("click", function(event) { set_tool(Pan); });
 			undobutton.addEventListener("click", function(event) { user_state.active_picture.undo(); });
+			redobutton.addEventListener("click", function(event) { user_state.active_picture.redo(); });
 			redbutton.addEventListener("change", color_change);
 			greenbutton.addEventListener("change", color_change);
 			bluebutton.addEventListener("change", color_change);

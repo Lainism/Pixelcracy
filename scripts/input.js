@@ -10,6 +10,7 @@ define(['jquery'],function($) {
 
         // When the mouse is first pressed down 
 		$('#canvas').mousedown(function(e){
+			state.active_tool.on_begin_drawing();
 			if (this.paint == true) { return; }
 
 			// Paint the current pixel

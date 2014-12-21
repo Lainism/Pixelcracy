@@ -1,4 +1,4 @@
-define(['layer','utility'], function(Layer,Util) {
+define(['layer','utility','history'], function(Layer,Util,UndoHistory) {
 
 	function Picture(width, height, user_state){
 		/* Picture draws the image on-screen */
@@ -11,7 +11,7 @@ define(['layer','utility'], function(Layer,Util) {
 
 	    this.size = [width, height];
 	    this.layers = [];
-        this.history = [];
+        this.history = new UndoHistory(this);
 
         // Creating the empty default layers
 	    for (i = 0; i < 5; i++) {
@@ -41,21 +41,17 @@ define(['layer','utility'], function(Layer,Util) {
 
         // Function managing the history
 		this.push_history = function() {
-            //needs to be reimplemented for pixelarrays
-            //this.history.push(data);
+            this.history.push(this.layers[user_state.active_layer]);
 		};
 
 		// Function returning the state of image from history
         this.undo = function() {
-            //needs to be reimplemented for pixelarrays
-            //if (this.history.length==0) {return}
-            //context.putImageData(this.history.pop(),0,0);
-
+            this.history.undo();
         };
         
         // Function returning the state of image after undo
         this.redo = function() {
-        	// TODO Redo
+            this.history.redo();
         }
 
         // Function all the layers on screen in order
