@@ -122,8 +122,8 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 
 			var layer_change = function(event) {
 				var opacity = pic.layers[user_state.active_layer].opacity;
-				user_state.active_layer = layermenu.options[layermenu.selectedIndex].value;
-				lopacitybutton.setAttribute("value", "" + opacity);
+				user_state.active_layer = layermenu.selectedIndex;
+				lopacitybutton.value = opacity;
 			}
 
 			// Renaming layer
@@ -156,7 +156,8 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 					$( options[ i ] ).insertBefore( $( options[ (i + direction) ] ) );
 				}
 
-				layermenu.selectedIndex = i + direction;
+				user_state.active_layer = layermenu.selectedIndex;
+
 				pic.redraw();
 			}
 
