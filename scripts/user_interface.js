@@ -104,6 +104,13 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 			lmovedownbutton.setAttribute("value", "Move down");
 			lmovedownbutton.setAttribute("name", "lmovedown");
 
+			var lopacitybutton = document.getElementById("lopacity");
+			lopacitybutton.setAttribute("type", "number");
+			lopacitybutton.setAttribute("value", "" + pic.layers[user_state.active_layer].opacity);
+			lopacitybutton.setAttribute("name", "lopacity");
+			lopacitybutton.setAttribute("min", "0");
+			lopacitybutton.setAttribute("max", "100");
+
 			// Helper function to changing the tools
 
 			var set_tool = function(tool){
@@ -114,7 +121,9 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 			//Changing layer
 
 			var layer_change = function(event) {
+				var opacity = pic.layers[user_state.active_layer].opacity;
 				user_state.active_layer = layermenu.options[layermenu.selectedIndex].value;
+				lopacitybutton.setAttribute("value", "" + opacity);
 			}
 
 			// Renaming layer
@@ -148,6 +157,14 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 				}
 
 				layermenu.selectedIndex = i + direction;
+				pic.redraw();
+			}
+
+			// Changing layer opacity
+
+			var layer_opacity_change = function(event) {
+				var o = $("#lopacity").val();
+				user_state.get_picture().layers[user_state.active_layer].opacity = o;
 				pic.redraw();
 			}
 
@@ -202,6 +219,7 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 			lrenamebutton.addEventListener("click", layer_rename);
 			lmoveupbutton.addEventListener("click", function(event) { layer_move(1); });
 			lmovedownbutton.addEventListener("click", function(event) { layer_move(-1); });
+			lopacitybutton.addEventListener("change", layer_opacity_change);
 
 			console.log("UI LOADED");
 		}

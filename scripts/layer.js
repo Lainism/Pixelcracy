@@ -6,6 +6,7 @@ define(['utility'], function(Util) {
 	    this.size = [width, height];
         this.parentpicture = picture;
         this.cached = true;
+        this.opacity = 100;
         
         // cachedcanvas/cachedcontext saves the rendered bitmap for this layer
         this.cachedcanvas = document.createElement('canvas');
@@ -35,6 +36,8 @@ define(['utility'], function(Util) {
             maxy=height;
             this.cachedcontext.clearRect ( 0 , 0 , this.cachedcanvas.width, this.cachedcanvas.height );
 
+            context.globalAlpha = this.opacity / 100.0;
+            
             // Drawing the pixels from the matrix to the context
             for (var i = minx; i < maxx; i++) {
                 for (var j = miny; j < maxy; j++) {

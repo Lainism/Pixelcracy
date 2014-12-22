@@ -64,6 +64,10 @@ define(['layer','utility','history'], function(Layer,Util,UndoHistory) {
 	        }
 		};
 
+        this.get_context = function() {
+            return context;
+        }
+
         }
 	return Picture;
 });
