@@ -75,6 +75,11 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 			redobutton.setAttribute("value", "Redo");
 			redobutton.setAttribute("name", "redobutton");
 
+			var redrawbutton = document.getElementById("redraw");
+			redrawbutton.setAttribute("type", "button");
+			redrawbutton.setAttribute("value", "Redraw");
+			redrawbutton.setAttribute("name", "redrawbutton");
+
 			// Layer select
 
 			var layer_number = user_state.layer_count;
@@ -212,6 +217,7 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 			panbutton.addEventListener("click", function(event) { set_tool(Pan); });
 			undobutton.addEventListener("click", function(event) { user_state.active_picture.undo(); });
 			redobutton.addEventListener("click", function(event) { user_state.active_picture.redo(); });
+			redrawbutton.addEventListener("click", function(event) { user_state.active_picture.redraw(); });
 			redbutton.addEventListener("change", color_change);
 			greenbutton.addEventListener("change", color_change);
 			bluebutton.addEventListener("change", color_change);

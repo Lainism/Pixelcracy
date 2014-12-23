@@ -10,7 +10,6 @@ define(['tools/tool'],function(Tool){
 	    // Overriding the function in Tool
 	    pen.paint = function(x0, x1, y0, y1, dragging) {
 			var layer = user_state.get_drawing_layer();
-			user_state.get_picture().get_context().globalAlpha = layer.opacity / 100.0;
 			Util.bresenham(layer,x0,x1,y0,y1,user_state.active_color, true);
 		};
 

@@ -26,7 +26,9 @@ define(['utility'], function(Util) {
         this.redraw = function(context) {
             // Return if catched
             if (this.cached) {
+                context.globalAlpha = this.opacity / 100.0;
                 context.drawImage(this.cachedcanvas,0,0);
+                context.globalAlpha = 1;
                 return;
             }
 
@@ -36,7 +38,6 @@ define(['utility'], function(Util) {
             maxy=height;
             this.cachedcontext.clearRect ( 0 , 0 , this.cachedcanvas.width, this.cachedcanvas.height );
 
-            context.globalAlpha = this.opacity / 100.0;
             
             // Drawing the pixels from the matrix to the context
             for (var i = minx; i < maxx; i++) {
@@ -49,11 +50,15 @@ define(['utility'], function(Util) {
                     
                 }
             }
+
             this.cached = true;
             
 
             // Draw the cached image to the screen context
+            context.globalAlpha = this.opacity / 100.0;
             context.drawImage(this.cachedcanvas,0,0);
+            context.globalAlpha = 1;
+
         };
 
         console.log("New layer created!");
