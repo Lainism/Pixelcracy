@@ -21,17 +21,15 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 			bucketbutton.setAttribute("value", "Bucket");
 			bucketbutton.setAttribute("name", "bucketbutton");
 
-			var zoombutton = document.createElement("input");
+			var zoombutton = document.getElementById("zoom");
 			zoombutton.setAttribute("type", "button");
 			zoombutton.setAttribute("value", "Zoom");
 			zoombutton.setAttribute("name", "zoombutton");
-			toolbar.appendChild(zoombutton);
 
-			var panbutton = document.createElement("input");
+			var panbutton = document.getElementById("move");
 			panbutton.setAttribute("type", "button");
 			panbutton.setAttribute("value", "Move");
 			panbutton.setAttribute("name", "panbutton");
-			toolbar.appendChild(panbutton);
 
 			var redbutton = document.getElementById("red");
 			redbutton.setAttribute("type", "number");
