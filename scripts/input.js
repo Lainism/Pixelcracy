@@ -48,6 +48,6 @@ define(['jquery'],function($) {
 		$('#canvas').contextmenu(function(e){
 			state.active_tool.right_click();
 		});*/
-    }
-    return InputHandler;
+	}
+	return InputHandler;
 });
