@@ -15,4 +15,3 @@ require(['user_state','user_interface','input'], function(UserState, UserInterfa
 
     state.active_picture.redraw();
 });
-
