@@ -3,20 +3,20 @@ define(['jquery'],function($) {
 	function InputHandler(user_state){
 		/* InputHandler links the user interactions on canvas to the program */
 
-        this.paint = false
-        var state = user_state;
-        var oldX = -1;
-        var oldY = -1;
+		this.paint = false
+		var state = user_state;
+		var oldX = -1;
+		var oldY = -1;
 
-        // When the mouse is first pressed down 
+		// When the mouse is first pressed down 
 		$('#canvas').mousedown(function(e){
 			state.active_tool.on_begin_drawing();
 			if (this.paint == true) { return; }
 
 			// Paint the current pixel
 			oldX = e.pageX - this.offsetLeft;
-            oldY = e.pageY - this.offsetTop;
-        	state.active_tool.paint(oldX,oldX,oldY,oldY,this.paint);
+			oldY = e.pageY - this.offsetTop;
+			state.active_tool.paint(oldX,oldX,oldY,oldY,this.paint);
 			this.paint = true;         
 		});
 
@@ -25,8 +25,8 @@ define(['jquery'],function($) {
 			if(!this.paint){ return; }
 
 			// Paint the line between old and new positions
-		    var x = e.pageX - this.offsetLeft;
-            var y = e.pageY - this.offsetTop;
+			var x = e.pageX - this.offsetLeft;
+			var y = e.pageY - this.offsetTop;
 			state.active_tool.paint(oldX,x,oldY,y,this.paint);
 
 			// x and y stop being new

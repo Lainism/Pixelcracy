@@ -117,8 +117,8 @@ define(['tools/pen','tools/bucket','tools/zoom', 'jquery','utility'],function(Pe
 			// Helper function to changing the tools
 
 			var set_tool = function(tool){
-			    console.log("now using tool: " + tool.name);
-			    user_state.active_tool = new tool(user_state);
+				console.log("now using tool: " + tool.name);
+				user_state.active_tool = new tool(user_state);
 			};
 
 			//Changing layer
